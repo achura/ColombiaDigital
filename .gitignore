@@ -1,0 +1,5 @@
+bin
+bin\*
+.project
+manifest.xml
+.settings/IQ_IDE.prefs
