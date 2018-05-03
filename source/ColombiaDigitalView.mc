@@ -13,8 +13,8 @@ enum {
 
 class ColombiaDigitalView extends Ui.WatchFace {
 
-	var mFlagType;
-	var mDrawFlag;
+	hidden var mFlagType;
+	hidden var mDrawFlag;
 
     function initialize() {
         WatchFace.initialize();
@@ -69,7 +69,6 @@ class ColombiaDigitalView extends Ui.WatchFace {
 
 	function onSettingChanged() {
         _mainView.handleSettingUpdate();
-		Logger.warning("setting changed");
 		updateFlag();        
         WatchUi.requestUpdate();
 	}
@@ -132,8 +131,7 @@ class ColombiaDigitalView extends Ui.WatchFace {
 
 		// Draw the time
 		var clockTime = Sys.getClockTime();
-		var format = "$1$:$2$";
-		var timeString = Lang.format(format, [clockTime.hour, clockTime.min.format("%02d")]);
+		var timeString = getTimeString();
 		dc.setColor(Gfx.COLOR_WHITE,Gfx.COLOR_TRANSPARENT);
 		dc.drawText(2, y, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_LEFT);
     
@@ -158,9 +156,7 @@ class ColombiaDigitalView extends Ui.WatchFace {
 		dc.fillRectangle(0,y-1,width,height);
 
 		// Draw the time
-		var clockTime = Sys.getClockTime();
-		var format = "$1$:$2$";
-		var timeString = Lang.format(format, [clockTime.hour, clockTime.min.format("%02d")]);
+		var timeString = getTimeString();
 		dc.setColor(textColor,backgroundColor);
 		dc.drawText((dc.getWidth()-timeString.length())/2, y, Gfx.FONT_MEDIUM, timeString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
@@ -181,4 +177,14 @@ class ColombiaDigitalView extends Ui.WatchFace {
 		dc.drawText((dc.getWidth()-dateString.length())/2, 1, Gfx.FONT_MEDIUM, dateString, Gfx.TEXT_JUSTIFY_CENTER);
 	}
 
+	function getTimeString() {
+		var clockTime = Sys.getClockTime();
+		var hour = clockTime.hour;
+		if (!Sys.getDeviceSettings().is24Hour && hour > 12) {
+			hour = clockTime.hour - 12;
+		}
+		
+		var timeString = Lang.format("$1$:$2$", [hour, clockTime.min.format("%02d")]);
+		return timeString;
+	}
 }
