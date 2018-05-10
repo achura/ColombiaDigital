@@ -24,10 +24,6 @@ class ColombiaDigitalView extends Ui.WatchFace {
     //! Load your resources here
     function onLayout(dc) {
         setLayout(Rez.Layouts.WatchFace(dc));
-		//dc.setColor(Gfx.COLOR_BLACK,Gfx.COLOR_BLACK);
-		//dc.fillRectangle(0,0,dc.getWidth(), dc.getHeight());
-
-		//drawFlag(dc);
     }
 
     //! Called when this View is brought to the foreground. Restore
