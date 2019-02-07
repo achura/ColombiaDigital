@@ -1,8 +1,1 @@
-<settings>
-	<setting propertyKey="@Properties.flagType" title="@Strings.FlagType">
-		<settingConfig type="list">
-			<listEntry value="0">@Strings.Colombian</listEntry>
-			<listEntry value="1">@Strings.Dutch</listEntry>
-		</settingConfig>
-	</setting>
-</settings>
+<settings></settings>
