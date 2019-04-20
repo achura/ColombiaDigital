@@ -16,7 +16,6 @@ class ColombiaDigitalView extends Ui.WatchFace {
 
     //! Load your resources here
     function onLayout(dc) {
-        setLayout(Rez.Layouts.WatchFace(dc));
     }
 
     //! Called when this View is brought to the foreground. Restore
