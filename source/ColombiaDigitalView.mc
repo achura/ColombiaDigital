@@ -9,7 +9,6 @@ class ColombiaDigitalView extends Ui.WatchFace {
 	hidden var mScreenHeight;
 	hidden var mScreenWidth;
 	hidden var mTextHeight;
-	hidden var mDrawFlag;
 
     function initialize() {
         WatchFace.initialize();
@@ -24,34 +23,29 @@ class ColombiaDigitalView extends Ui.WatchFace {
     //! the state of this View and prepare it to be shown. This includes
     //! loading resources into memory.
     function onShow() {
-    	mDrawFlag = true;
     }
 
     //! Update the view
     function onUpdate(dc) {
-    	if(mDrawFlag) {
-			mScreenHeight = dc.getHeight();
-			mScreenWidth = dc.getWidth();
-    		mTextHeight = 2+Gfx.getFontHeight(Gfx.FONT_MEDIUM);
+		mScreenHeight = dc.getHeight();
+		mScreenWidth = dc.getWidth();
+		mTextHeight = 2+Gfx.getFontHeight(Gfx.FONT_MEDIUM);
 
-    		var height = mScreenHeight + 1;
-    		var y = 0;
-    		if(Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND) {
-    			y = mTextHeight;
-    			height = height - 2*mTextHeight;
-    		} else {
-				y = 0;
-    			height = height - mTextHeight;
-    		}
-    		
-    		drawFlag(dc, 0, y, height, mScreenWidth);
-    		mDrawFlag = false;
-    	}
-    
+		var height = mScreenHeight + 1;
+		var y = 0;
+
     	if(Sys.getDeviceSettings().screenShape == Sys.SCREEN_SHAPE_ROUND) {
+			y = mTextHeight;
+			height = height - 2*mTextHeight;
+
+			drawFlag(dc, 0, y, height, mScreenWidth);
     		drawDateForRoundScreen(dc);
     		drawTimeForRoundScreen(dc);
 	    } else {
+			y = 0;
+			height = height - mTextHeight;
+
+			drawFlag(dc, 0, y, height, mScreenWidth);
     		drawTimeForRectanglarScreen(dc);
 	    }
     }
